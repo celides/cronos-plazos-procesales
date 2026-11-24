@@ -1,67 +1,255 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es-MX">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cronos | Gestión de Plazos Procesales</title>
-<meta name="description" content="Cómputo de plazos procesales con certeza jurídica y generación de borradores.">
+<title>CRONOS | Gestión de Plazos Procesales</title>
 <style>
 :root {
-    --primary: #0f172a;
-    --secondary: #1e293b;
-    --accent: #f59e0b;
-    --accent-hover: #d97706;
+    --navy: #0f172a;
+    --navy-light: #1e293b;
+    --gold: #ca8a04;
+    --gold-light: #eab308;
     --bg: #f8fafc;
     --text: #334155;
-    --text-light: #64748b;
-    --success: #10b981;
-    --danger: #ef4444;
+    --border: #cbd5e1;
+    --danger: #991b1b;
 }
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;min-height:100vh}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+.header { background: var(--navy); color: white; padding: 20px 30px; border-bottom: 4px solid var(--gold); display: flex; justify-content: space-between; align-items: center; }
+.logo { display: flex; align-items: center; gap: 15px; }
+.logo-icon { width: 45px; height: 45px; background: var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; color: var(--navy); font-weight: bold; }
+.logo h1 { font-size: 1.6em; letter-spacing: 2px; font-weight: 300; }
+.logo h1 span { color: var(--gold); font-weight: 700; }
+.logo-sub { font-size: 0.75em; color: #94a3b8; letter-spacing: 1px; text-transform: uppercase; }
 
-.header{background:var(--primary);color:#fff;padding:20px 40px;display:flex;justify-content:space-between;align-items:center;border-bottom:4px solid var(--accent)}
-.logo{display:flex;align-items:center;gap:15px}
-.logo-icon{width:45px;height:45px;background:var(--accent);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:24px;color:var(--primary);font-weight:bold}
-.logo h1{font-size:1.8em;letter-spacing:1px;font-weight:700}
-.logo h1 span{color:var(--accent);font-weight:300}
+.container { max-width: 1400px; margin: 0 auto; padding: 20px; display: grid; grid-template-columns: 400px 1fr; gap: 25px; }
+.sidebar { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); height: fit-content; }
+.sidebar h3 { color: var(--navy); margin-bottom: 15px; font-size: 1.1em; border-bottom: 2px solid var(--gold); padding-bottom: 8px; display: flex; align-items: center; gap: 8px; }
 
-.hero{background:linear-gradient(135deg,var(--primary) 0%,var(--secondary) 100%);color:#fff;padding:60px 40px;text-align:center}
-.hero h2{font-size:2.5em;margin-bottom:15px;font-weight:700;line-height:1.2}
-.hero h2 span{color:var(--accent)}
-.hero p{font-size:1.1em;color:#cbd5e1;max-width:800px;margin:0 auto}
+.form-group { margin-bottom: 15px; }
+.form-group label { display: block; margin-bottom: 5px; font-weight: 600; font-size: 0.85em; color: var(--navy); text-transform: uppercase; letter-spacing: 0.5px; }
+.form-group input, .form-group select, .form-group textarea { width: 100%; padding: 10px; border: 2px solid var(--border); border-radius: 6px; font-size: 0.95em; transition: border-color 0.3s; font-family: inherit; }
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: var(--gold); }
 
-.container{max-width:1200px;margin:0 auto;padding:30px 20px}
+.btn { width: 100%; padding: 12px; border: none; border-radius: 6px; font-size: 1em; font-weight: 600; cursor: pointer; transition: all 0.3s; margin-top: 10px; }
+.btn-primary { background: var(--navy); color: var(--gold); }
+.btn-primary:hover { background: var(--navy-light); transform: translateY(-1px); }
+.btn-gold { background: var(--gold); color: var(--navy); }
+.btn-gold:hover { background: var(--gold-light); }
+.btn-secondary { background: #64748b; color: white; }
 
-.section-title{text-align:center;margin-bottom:30px}
-.section-title h3{font-size:1.8em;color:var(--primary);margin-bottom:10px}
-.section-title p{color:var(--text-light);font-size:1em}
+.main-content { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); display: flex; flex-direction: column; }
+.toolbar { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; align-items: center; padding-bottom: 15px; border-bottom: 1px solid var(--border); }
+.toolbar-title { font-weight: 700; color: var(--navy); margin-right: auto; }
 
-.cases-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:40px}
-.case-card{background:#fff;border-radius:12px;padding:20px;border-left:5px solid var(--accent);box-shadow:0 4px 6px rgba(0,0,0,.05)}
-.case-card .tag{display:inline-block;background:#fef3c7;color:#92400e;padding:4px 10px;border-radius:4px;font-size:.75em;font-weight:700;margin-bottom:10px;text-transform:uppercase}
-.case-card h4{color:var(--primary);font-size:1.1em;margin-bottom:8px}
-.case-card p{color:var(--text-light);font-size:.9em;margin-bottom:12px}
-.case-card .meta{display:flex;gap:15px;font-size:.85em;color:var(--text-light);border-top:1px solid #e2e8f0;padding-top:12px}
-.case-card .meta strong{color:var(--primary)}
+.preview-area { background: #fff; border: 1px solid var(--border); border-radius: 8px; padding: 40px; min-height: 600px; font-family: 'Georgia', 'Times New Roman', serif; line-height: 1.8; color: #000; flex: 1; }
+.preview-area h2 { text-align: center; margin-bottom: 25px; text-transform: uppercase; font-size: 1.3em; color: var(--navy); }
+.preview-area h3 { text-align: center; margin-bottom: 15px; color: var(--danger); font-size: 1.1em; }
+.preview-area p { margin-bottom: 15px; text-align: justify; }
+.preview-area .var { background: #fef9c3; padding: 2px 4px; border-radius: 3px; font-weight: bold; color: #854d0e; }
+.preview-area .firma { margin-top: 60px; text-align: center; }
+.preview-area .firma-line { border-top: 1px solid #000; width: 300px; margin: 0 auto 10px; }
 
-.calc-box{background:#fff;border-radius:16px;padding:30px;box-shadow:0 10px 30px rgba(0,0,0,.08);border:1px solid #e2e8f0}
-.calc-box h3{color:var(--primary);margin-bottom:20px;display:flex;align-items:center;gap:10px;font-size:1.3em}
+.phoenix-badge { background: #f0f9ff; border-left: 4px solid #0369a1; padding: 15px; margin-bottom: 20px; border-radius: 0 6px 6px 0; }
+.phoenix-badge h4 { color: #0c4a6e; font-size: 0.95em; margin-bottom: 5px; }
+.phoenix-badge p { color: #0369a1; font-size: 0.85em; margin: 0; text-align: left; }
 
-.form-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;margin-bottom:20px}
-.form-group label{display:block;margin-bottom:6px;font-weight:600;color:var(--primary);font-size:.9em}
-.form-group select,.form-group input{width:100%;padding:10px;border:2px solid #e2e8f0;border-radius:8px;font-size:1em;transition:border-color .3s;background:#fff}
-.form-group select:focus,.form-group input:focus{outline:none;border-color:var(--accent)}
+.hidden { display: none; }
+@media (max-width: 900px) { .container { grid-template-columns: 1fr; } }
+@media print {
+    body { background: white; }
+    .header, .sidebar, .toolbar { display: none !important; }
+    .container { display: block; max-width: 100%; padding: 0; }
+    .main-content { box-shadow: none; padding: 0; }
+    .preview-area { border: none; padding: 20px; }
+}
+</style>
+</head>
+<body>
 
-.btn-calc{width:100%;padding:14px;background:var(--accent);color:var(--primary);border:none;border-radius:8px;font-size:1.05em;font-weight:700;cursor:pointer;transition:all .3s;margin-top:10px}
-.btn-calc:hover{background:var(--accent-hover);transform:translateY(-2px);box-shadow:0 5px 15px rgba(245,158,11,.3)}
+<div class="header">
+    <div class="logo">
+        <div class="logo-icon">⏱️</div>
+        <div>
+            <h1>CRONOS <span>PROCEDURAL</span></h1>
+            <div class="logo-sub">Cómputo de Plazos y Generación de Borradores</div>
+        </div>
+    </div>
+    <div style="font-size: 0.85em; color: #94a3b8;">v1.0 | 100% Local y Seguro</div>
+</div>
 
-.result-box{display:none;margin-top:30px;background:#f0fdf4;border:2px solid var(--success);border-radius:12px;padding:25px;animation:fadeIn .5s}
-@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-.result-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;padding-bottom:15px;border-bottom:2px solid #bbf7d0;flex-wrap:wrap;gap:15px}
-.result-date{font-size:1.8em;font-weight:800;color:var(--danger)}
-.result-detail{color:var(--text);margin-bottom:8px;font-size:.95em}
-.result-detail strong{color:var(--primary)}
+<div class="container">
+    <div class="sidebar">
+        <div class="phoenix-badge">
+            <h4>🔒 Cero negligencias por descuido</h4>
+            <p>Cronos aplica las reglas reales del cómputo procesal mexicano (días hábiles, surtimiento de efectos). Tú ajustas el criterio, corriges y firmas.</p>
+        </div>
 
-.draft-preview{background:#fff;border:1px solid #
+        <h3>⚖️ 1. Datos del Expediente</h3>
+        <div class="form-group">
+            <label>Materia:</label>
+            <select id="materia">
+                <option value="civil">Civil / Mercantil</option>
+                <option value="laboral">Laboral</option>
+                <option value="amparo">Amparo Indirecto</option>
+                <option value="administrativo">Contencioso Administrativo</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Número de Expediente:</label>
+            <input type="text" id="expediente" placeholder="Ej: 123/2024">
+        </div>
+        <div class="form-group">
+            <label>Juzgado / Tribunal:</label>
+            <input type="text" id="juzgado" placeholder="Ej: Juzgado Tercero de Distrito">
+        </div>
+        <div class="form-group">
+            <label>Estado / Jurisdicción:</label>
+            <select id="estado">
+                <option value="Ciudad de México">Ciudad de México</option>
+                <option value="Jalisco">Jalisco</option>
+                <option value="Nuevo León">Nuevo León</option>
+                <option value="Federal (PJF)">Federal (PJF)</option>
+                <option value="Otro">Otro</option>
+            </select>
+        </div>
+
+        <h3>📅 2. Cómputo del Plazo</h3>
+        <div class="form-group">
+            <label>Fecha de Notificación / Consulta:</label>
+            <input type="date" id="fechaNotificacion">
+        </div>
+        <div class="form-group">
+            <label>Tipo de Notificación:</label>
+            <select id="tipoNotificacion">
+                <option value="electronica">Electrónica (Buzón)</option>
+                <option value="personal">Personal</option>
+                <option value="estrados">Estrados / Lista de Acuerdos</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Plazo Otorgado (Días Hábiles):</label>
+            <input type="number" id="plazoDias" placeholder="Ej: 9, 15, 30">
+        </div>
+
+        <h3>👤 3. Datos del Abogado</h3>
+        <div class="form-group">
+            <label>Nombre del Abogado:</label>
+            <input type="text" id="abogadoNombre" placeholder="Lic. Juan Pérez García">
+        </div>
+        <div class="form-group">
+            <label>Cédula Profesional:</label>
+            <input type="text" id="abogadoCedula" placeholder="12345678">
+        </div>
+        <div class="form-group">
+            <label>Nombre del Cliente (Promovente):</label>
+            <input type="text" id="clienteNombre" placeholder="Nombre de tu cliente">
+        </div>
+
+        <button class="btn btn-primary" onclick="calcularYGenerar()">⏱️ Calcular Plazo y Generar Borrador</button>
+        <button class="btn btn-secondary" onclick="limpiarFormulario()">🗑️ Limpiar Todo</button>
+    </div>
+
+    <div class="main-content">
+        <div class="toolbar">
+            <span class="toolbar-title">👁️ Vista Previa del Documento</span>
+            <span style="font-weight: 600; font-size: 0.9em;">🔤 Tamaño:</span>
+            <button class="btn btn-secondary" style="width: auto; padding: 5px 12px; margin: 0;" onclick="cambiarFuente(-1)">A-</button>
+            <span id="font-size-display" style="min-width: 40px; text-align: center; font-weight: bold;">12pt</span>
+            <button class="btn btn-secondary" style="width: auto; padding: 5px 12px; margin: 0;" onclick="cambiarFuente(1)">A+</button>
+            <button class="btn btn-gold" style="width: auto; margin-left: 15px;" onclick="window.print()">🖨️ Imprimir / Guardar PDF</button>
+        </div>
+        <div class="preview-area" id="preview">
+            <p style="text-align: center; color: #64748b; margin-top: 200px; font-family: 'Segoe UI', sans-serif;">
+                Ingresa los datos del expediente y el plazo en el panel izquierdo.<br>
+                Cronos calculará la fecha límite exacta y generará un borrador del escrito listo para tu revisión.
+            </p>
+        </div>
+    </div>
+</div>
+
+<script>
+let currentFontSize = 12;
+
+function calcularYGenerar() {
+    const materia = document.getElementById('materia').value;
+    const expediente = document.getElementById('expediente').value || "[NÚMERO DE EXPEDIENTE]";
+    const juzgado = document.getElementById('juzgado').value || "[JUZGADO O TRIBUNAL]";
+    const estado = document.getElementById('estado').value;
+    const fechaNotifStr = document.getElementById('fechaNotificacion').value;
+    const tipoNotif = document.getElementById('tipoNotificacion').value;
+    const plazoDias = parseInt(document.getElementById('plazoDias').value);
+    const abogado = document.getElementById('abogadoNombre').value || "[NOMBRE DEL ABOGADO]";
+    const cedula = document.getElementById('abogadoCedula').value || "[CÉDULA]";
+    const cliente = document.getElementById('clienteNombre').value || "[NOMBRE DEL CLIENTE]";
+
+    if (!fechaNotifStr || !plazoDias) {
+        alert("Por favor, ingresa la fecha de notificación y el plazo en días.");
+        return;
+    }
+
+    // Lógica de cómputo de días hábiles (salta sábados y domingos)
+    let fecha = new Date(fechaNotifStr + 'T12:00:00'); // T12:00:00 para evitar problemas de zona horaria
+    let diasContados = 0;
     
+    // Regla: El día de la notificación no se cuenta, empieza a correr al día hábil siguiente
+    fecha.setDate(fecha.getDate() + 1);
+    
+    while (diasContados < plazoDias) {
+        let diaSemana = fecha.getDay();
+        if (diaSemana !== 0 && diaSemana !== 6) { // 0 = Domingo, 6 = Sábado
+            diasContados++;
+        }
+        if (diasContados < plazoDias) {
+            fecha.setDate(fecha.getDate() + 1);
+        }
+    }
+
+    const opcionesFecha = { year: 'numeric', month: 'long', day: 'numeric' };
+    const fechaVencimiento = fecha.toLocaleDateString('es-MX', opcionesFecha);
+    const fechaNotifFormateada = new Date(fechaNotifStr + 'T12:00:00').toLocaleDateString('es-MX', opcionesFecha);
+
+    let surtimientoEfectos = "";
+    if (tipoNotif === 'electronica') {
+        surtimientoEfectos = "al día hábil siguiente a su consulta, conforme a la legislación procesal aplicable";
+    } else if (tipoNotif === 'personal') {
+        surtimientoEfectos = "en el momento de la diligencia de notificación";
+    } else {
+        surtimientoEfectos = "al día hábil siguiente a su fijación en estrados";
+    }
+
+    let tituloEscrito = "";
+    let cuerpoEscrito = "";
+
+    if (materia === 'civil') {
+        tituloEscrito = "ACUSE DE RECIBO Y MANIFESTACIÓN";
+        cuerpoEscrito = `
+            <p>Que por medio del presente escrito, y dentro del plazo legal de <strong>${plazoDias} días hábiles</strong> concedido, vengo a dar por <strong>NOTIFICADO</strong> con la resolución de fecha ${fechaNotifFormateada}, la cual surtió efectos el día que corresponde conforme a la ley.</p>
+            <p>Al respecto, manifiesto lo siguiente:</p>
+            <p>[ESPACIO PARA AGREGAR EL FONDO DEL ASUNTO: CONTESTACIÓN DE DEMANDA, INTERPOSICIÓN DE RECURSO, O MANIFESTACIÓN QUE CORRESPONDA SEGÚN LA ESTRATEGIA JURÍDICA].</p>
+            <p>Por lo anteriormente expuesto, a Usted C. Juez, atentamente pido:</p>
+            <p>PRIMERO.- Tenerme por presentado con este escrito, dándome por notificado en tiempo y forma.</p>
+            <p>SEGUNDO.- Tener por hecha la manifestación que antecede y, en su oportunidad, dictar la resolución que en derecho corresponda.</p>
+        `;
+    } else if (materia === 'laboral') {
+        tituloEscrito = "CONTESTACIÓN DE DEMANDA / ESCRITO INICIAL";
+        cuerpoEscrito = `
+            <p>Que por medio del presente escrito, y dentro del término de <strong>${plazoDias} días hábiles</strong> que concede la Ley Federal del Trabajo, vengo a dar por notificado con el auto de fecha ${fechaNotifFormateada}.</p>
+            <p>En consecuencia, procedo a <strong>CONTESTAR LA DEMANDA</strong> interpuesta en mi contra, negando y desmintiendo cada uno de los hechos que no sean expresamente reconocidos, por considerarlos contrarios a la verdad.</p>
+            <p>[ESPACIO PARA EXCEPCIONES PREVIAS, FONDOS Y OFRECIMIENTO DE PRUEBAS].</p>
+            <p>Por lo expuesto, a esta H. Junta/Tribunal, atentamente pido se me tenga por contestando la demanda en tiempo y forma.</p>
+        `;
+    } else if (materia === 'amparo') {
+        tituloEscrito = "ESCRITO DE DEMANDA DE AMPARO INDIRECTO";
+        cuerpoEscrito = `
+            <p>Que por medio del presente escrito, y dentro del plazo de <strong>${plazoDias} días hábiles</strong> establecido en la Ley de Amparo, vengo a interponer <strong>DEMANDA DE AMPARO INDIRECTO</strong> en contra de la resolución de fecha ${fechaNotifFormateada}, emitida por la autoridad responsable.</p>
+            <p>[ESPACIO PARA: NOMBRE DEL ACTOR, AUTORIDAD RESPONSABLE, ACTO RECLAMADO, CONCEPTOS DE VIOLACIÓN Y PRECEPTOS LEGALES].</p>
+            <p>Por lo expuesto, a este H. Juzgado de Distrito, atentamente pido:</p>
+            <p>PRIMERO.- Admitir la presente demanda de amparo.</p>
+            <p>SEGUNDO.- Solicitar el informe justificado a la autoridad responsable.</p>
+            <p>TERCERO.- En su oportunidad, conceder el amparo y protección de la Justicia Federal.</p>
+        `;
+    } else {
+        tituloEscrito = "PROMOCIÓN DENTRO DEL EXPEDIENTE
